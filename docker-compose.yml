@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  iam-service:
+    build: .
+    container_name: enterprise-iam-poc
+    ports:
+      - "8080:8080"
+    environment:
+      - SECRET_KEY=demo_secret_key_change_in_production
+    volumes:
+      - ./app:/app/app
+      - ./iam.db:/app/iam.db
+    restart: always
