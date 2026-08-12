@@ -1,55 +1,50 @@
-# Enterprise IAM & Auth Service PoC 🔐
+# Enterprise IAM & Auth Service PoC (Python) 🔐
 
-A comprehensive Proof of Concept demonstrating an Enterprise-Grade Identity and Access Management (IAM) Service built with **FastAPI**.
+> A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns.
 
-## 📖 Overview
+## The Problem
 
-Identity and Access Management is a critical component of any enterprise architecture. This PoC demonstrates the fundamental building blocks of a modern, secure, and modular authentication service. It utilizes Domain-Driven Design (DDD) to separate concerns such as core security, authentication, and Role-Based Access Control (RBAC).
+Most simple apps use basic JWTs and tightly couple their user authentication with their core business logic. In enterprise environments, Identity must be a centralized, secure service capable of handling complex RBAC (Role-Based Access Control), SSO (Single Sign-On), and secure token lifecycles without leaking credentials to downstream microservices.
 
-## ✨ Enterprise Features
+## The Solution
 
-- **JWT (JSON Web Tokens)**: Secure, stateless token generation and validation.
-- **RBAC (Role-Based Access Control)**: Granular endpoint protection using FastAPI dependencies.
-- **Password Security**: State-of-the-art `bcrypt` password hashing via `passlib`.
-- **SSO Simulation**: Mock federated login flows simulating OAuth2/OIDC (e.g., "Login with Google/Okta").
-- **Modular Architecture**: Clean separation of `auth`, `sso`, and `rbac` domains.
-- **Database Integration**: SQLAlchemy ORM backed by SQLite (easily swappable to PostgreSQL).
+This PoC separates Identity into a standalone service. It provides:
+1. **SSO Simulation**: OAuth2/OIDC patterns with authorization codes and token exchanges.
+2. **Enterprise RBAC**: Decoupled role and permission management.
+3. **Secure Token Issuance**: Short-lived access tokens and secure refresh token handling.
+
+By keeping identity decoupled, downstream services only need to validate the cryptographic signature of the token, allowing the architecture to scale securely.
+
+## Why This Over the Obvious Alternative
+
+Many developers just use Firebase Auth or Auth0 without understanding the underlying OAuth2/OIDC flows. Building this custom IAM service demonstrates a deep understanding of token lifecycles, asymmetric cryptography (simulated here with robust JWT signing), and proper separation of concerns in a Zero Trust architecture.
+
+## 🛠️ Tech Stack
+
+- **Language**: Python 3.11
+- **Framework**: FastAPI
+- **Security**: PyJWT, Passlib (Bcrypt)
+- **Containerization**: Docker
+
+## Decision Log
+
+| Decision | Rationale |
+|----------|-----------|
+| FastAPI | Provides built-in OAuth2 password and bearer token support, auto-generating compliant Swagger docs. |
+| Decoupled RBAC | Roles are mapped to permissions dynamically rather than hardcoding scopes into user records, mimicking enterprise Active Directory/LDAP patterns. |
+| Short-lived Access Tokens | Reduces the attack surface if a token is intercepted; relies on secure refresh mechanisms. |
 
 ## 🚀 Getting Started
 
-### Running with Docker (Recommended)
+```bash
+docker-compose up -d --build
+```
+Access the interactive Swagger UI at `http://localhost:8000/docs`.
 
-1. **Build and start the container**:
-   ```bash
-   docker-compose up -d --build
-   ```
-2. **Access the API**: 
-   The service will be running on `http://localhost:8080`.
-3. **Swagger UI**: Navigate to `http://localhost:8080/docs` to test the endpoints interactively.
+## 📁 Project Structure
 
-### Local Development (Without Docker)
-
-1. Create a virtual environment and install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Run the application using Uvicorn:
-   ```bash
-   uvicorn app.main:app --reload --port 8080
-   ```
-
-## 🧪 Testing the RBAC
-
-1. Go to the Swagger UI (`/docs`).
-2. Use `/api/v1/auth/register` to create a user. By default, they get the `user` role.
-3. Login using the "Authorize" button at the top right to get your JWT.
-4. Try to access `/api/v1/admin/dashboard`. You will get a `403 Forbidden` error because your role is not `admin`.
-5. Try to access `/api/v1/users/me`. You will get a `200 OK` response because it only requires a valid token.
-
-## 📁 Architecture Details
-
-For a detailed breakdown of the design patterns used, see the [Architecture Documentation](docs/ARCHITECTURE.md).
+For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
 
 ## 👨‍💻 Author
 
-*Created as a technical showcase for enterprise backend engineering.*
+*Built to demonstrate enterprise Identity and Access Management patterns.*
