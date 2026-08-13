@@ -45,6 +45,90 @@ Access the interactive Swagger UI at `http://localhost:8000/docs`.
 
 For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
 
+
+## ðŸ“‹ Prerequisites
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| [Docker](https://www.docker.com/) | >= 24.x | Container runtime |
+| [Docker Compose](https://docs.docker.com/compose/) | >= 2.x | Multi-container orchestration |
+| [curl](https://curl.se/) or browser | Any | API testing |
+
+*For local dev without Docker: Python >= 3.11, pip*
+
+## ðŸš€ Step-by-Step Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/SumitDalavi/enterprise-iam-auth-poc-python.git
+cd enterprise-iam-auth-poc-python
+
+# 2. Build and start
+docker-compose up -d --build
+
+# 3. Verify it's running
+curl http://localhost:8080/docs
+```
+
+The API and Swagger UI are now available at **http://localhost:8080/docs**
+
+## ðŸ§ª Usage & Demo â€” Full Auth Flow
+
+### Step 1: Register a new user
+```bash
+curl -X POST http://localhost:8080/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@example.com", "password": "SecureP@ss123"}'
+```
+
+### Step 2: Login to get a JWT token
+```bash
+curl -X POST http://localhost:8080/api/v1/auth/login \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=admin@example.com&password=SecureP@ss123"
+# Response: {"access_token": "eyJhbGci...", "token_type": "bearer"}
+```
+
+### Step 3: Access protected endpoints
+```bash
+# Get current user info (any authenticated user)
+curl http://localhost:8080/api/v1/users/me \
+  -H "Authorization: Bearer <TOKEN>"
+
+# Access admin-only dashboard (RBAC-protected)
+curl http://localhost:8080/api/v1/admin/dashboard \
+  -H "Authorization: Bearer <TOKEN>"
+```
+
+### Step 4: SSO Simulation
+```bash
+# Initiate mock SSO authorization
+curl http://localhost:8080/api/v1/sso/authorize
+
+# Exchange code for token
+curl -X POST http://localhost:8080/api/v1/sso/token \
+  -H "Content-Type: application/json" \
+  -d '{"code": "mock_authorization_code"}'
+```
+
+### Interactive Testing
+Open **http://localhost:8080/docs** in your browser for the full Swagger UI where you can test all endpoints interactively.
+
+## âœ… Verification
+
+| Check | Command | Expected |
+|-------|---------|----------|
+| Swagger UI | Open `http://localhost:8080/docs` | Interactive API docs |
+| Register | POST `/api/v1/auth/register` | 201 Created |
+| Login | POST `/api/v1/auth/login` | JWT token returned |
+| Auth Check | GET `/api/v1/users/me` with token | User info returned |
+| RBAC | GET `/api/v1/admin/dashboard` | 200 for admin, 403 for user |
+
+```bash
+# Stop the service
+docker-compose down
+```
+
 ## 👨‍💻 Author
 
 *Built to demonstrate enterprise Identity and Access Management patterns.*
