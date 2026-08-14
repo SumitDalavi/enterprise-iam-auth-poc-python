@@ -2,6 +2,12 @@
 
 > A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns.
 
+> **⚠️ PoC Note:** SSO endpoints use simulated OAuth2/OIDC flows (not connected to a real IdP like Okta or Azure AD). All auth logic (JWT, RBAC, password hashing) is fully functional.
+
+
+> **🔗 See also:** [Node.js/TypeScript implementation](https://github.com/SumitDalavi/enterprise-iam-auth-poc-node) of the same IAM service — demonstrating polyglot capability across Python and Node.js ecosystems.
+
+
 ## The Problem
 
 Most simple apps use basic JWTs and tightly couple their user authentication with their core business logic. In enterprise environments, Identity must be a centralized, secure service capable of handling complex RBAC (Role-Based Access Control), SSO (Single Sign-On), and secure token lifecycles without leaking credentials to downstream microservices.
@@ -46,7 +52,7 @@ Access the interactive Swagger UI at `http://localhost:8000/docs`.
 For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
 
 
-## ðŸ“‹ Prerequisites
+## 📋 Prerequisites
 
 | Tool | Version | Purpose |
 |------|---------|---------|
@@ -56,7 +62,7 @@ For a detailed breakdown of the codebase and technical design decisions, please 
 
 *For local dev without Docker: Python >= 3.11, pip*
 
-## ðŸš€ Step-by-Step Setup
+## 🚀 Step-by-Step Setup
 
 ```bash
 # 1. Clone the repository
@@ -72,7 +78,7 @@ curl http://localhost:8080/docs
 
 The API and Swagger UI are now available at **http://localhost:8080/docs**
 
-## ðŸ§ª Usage & Demo â€” Full Auth Flow
+## 🧪 Usage & Demo â€” Full Auth Flow
 
 ### Step 1: Register a new user
 ```bash
@@ -114,7 +120,7 @@ curl -X POST http://localhost:8080/api/v1/sso/token \
 ### Interactive Testing
 Open **http://localhost:8080/docs** in your browser for the full Swagger UI where you can test all endpoints interactively.
 
-## âœ… Verification
+## ✅ Verification
 
 | Check | Command | Expected |
 |-------|---------|----------|
@@ -131,4 +137,9 @@ docker-compose down
 
 ## 👨‍💻 Author
 
-*Built to demonstrate enterprise Identity and Access Management patterns.*
+**Sumit Dalavi** — Senior DevSecOps / Platform Engineer
+[GitHub](https://github.com/SumitDalavi) | [LinkedIn](https://in.linkedin.com/in/sumit-dalavi-762838129)
+
+---
+
+*Built with a focus on production-grade patterns, not toy demos.*
