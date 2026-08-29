@@ -164,3 +164,20 @@ docker-compose down
 ## 📁 Project Structure
 
 For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
+
+## 📖 Overview
+
+Identity and Access Management is a critical component of any enterprise architecture. This PoC demonstrates the fundamental building blocks of a modern, secure, and modular authentication service. It utilizes Domain-Driven Design (DDD) to separate concerns such as core security, authentication, and Role-Based Access Control (RBAC).
+
+## ✨ Enterprise Features
+
+- **JWT (JSON Web Tokens)**: Secure, stateless token generation and validation.
+- **RBAC (Role-Based Access Control)**: Granular endpoint protection using FastAPI dependencies.
+- **Password Security**: State-of-the-art `bcrypt` password hashing via `passlib`.
+- **SSO Simulation**: Mock federated login flows simulating OAuth2/OIDC (e.g., "Login with Google/Okta").
+- **Modular Architecture**: Clean separation of `auth`, `sso`, and `rbac` domains.
+- **Database Integration**: SQLAlchemy ORM backed by SQLite (easily swappable to PostgreSQL).
+
+## 📁 Architecture Details
+
+For a detailed breakdown of the design patterns used, see the [Architecture Documentation](docs/ARCHITECTURE.md).
