@@ -1,18 +1,42 @@
-# Architecture: Enterprise IAM PoC
+# Architecture — enterprise-iam-auth-poc-python
+> Last updated: 2026-08-29 | Maturity: Partial Prototype
+> _Enterprise IAM & SSO built with FastAPI._
 
 ## System Diagram
 The following Mermaid.js sequence diagram maps the core workflow and interactions:
 
 ```mermaid
-sequenceDiagram
-    client->>App: Login
-App->>IdP: Redirect
-IdP->>App: Callback with Code
-App->>IdP: Exchange for Token
+flowchart TD
+    Client(["Client App"])
+    API["FastAPI IAM Service"]
+    DB[("SQLite DB")]
+
+    Client -->|"1. POST /login (credentials)"| API
+    API -->|"2. Check Hash"| DB
+    DB -.-> API
+    API -->|"3. Sign JWT"| API
+    API -->|"4. Return Access/Refresh Tokens"| Client
+    Client -->|"5. GET /protected (Bearer token)"| API
+    API -->|"6. Verify Signature & Role"| API
 ```
 
+## Component Table
 
-This document outlines the architectural decisions and design patterns used in the Enterprise IAM (Identity and Access Management) Proof of Concept.
+| Component | File | Responsibility | Tech |
+|---|---|---|---|
+| Auth Routes | `app/api/auth.py` | Login and Registration | FastAPI |
+| SSO Routes | `app/api/sso.py` | Mock OIDC endpoints | FastAPI |
+| Core Security | `app/core/security.py`| Password hashing, JWT signing | PyJWT / Passlib |
+| Models | `app/db/models.py` | DB schemas for Users/Roles | SQLAlchemy |
+
+## Dependency Honesty Table
+
+| Dependency | Status | Notes |
+|---|---|---|
+| FastAPI | **Real** | Core routing and validation. |
+| SQLite | **Real** | Used as a lightweight RDBMS. |
+| Okta / Azure | **Simulated** | IdP integration is mocked inside `sso.py`. |
+
 
 ## 🏗️ Domain-Driven Design (DDD) Modularity
 

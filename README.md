@@ -1,6 +1,7 @@
 # Enterprise IAM & Auth Service PoC (Python) 🔐
 
-> A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns.
+> **Maturity:** Partial Prototype
+> _A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns._
 
 > **⚠️ PoC Note:** SSO endpoints use simulated OAuth2/OIDC flows (not connected to a real IdP like Okta or Azure AD). All auth logic (JWT, RBAC, password hashing) is fully functional.
 
@@ -47,11 +48,20 @@ docker-compose up -d --build
 ```
 Access the interactive Swagger UI at `http://localhost:8000/docs`.
 
-## 📁 Project Structure
+## Mock Boundaries (Honest Scope)
 
-For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
+| What | Status | Details |
+|---|---|---|
+| JWT & RBAC | **Real** | PyJWT and FastAPI dependencies validate real tokens and roles. |
+| DB Storage | **Real** | SQLite is used for robust local storage. |
+| External IdP | **Mocked** | SSO endpoints simulate OAuth2/OIDC without contacting Okta/Azure. |
 
+## 📚 Documentation
 
+- [Architecture](docs/ARCHITECTURE.md) — System diagram and component details
+- [Runbook](docs/runbook.md) — Setup, commands, and expected outputs
+- [Decisions](docs/decisions.md) — ADRs for IAM choices
+- [Changelog](docs/changelog.md) — Change history
 ## 📋 Prerequisites
 
 | Tool | Version | Purpose |
@@ -149,3 +159,8 @@ docker-compose down
 - **CI Pipeline Remediation:** Successfully resolved all CI/CD pipeline failures.
 - **Specific Fix:** Pinned FastAPI and Pydantic versions to resolve Pydantic V2 compatibility issues.
 - **Status:** 🟩 Passing
+
+
+## 📁 Project Structure
+
+For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
