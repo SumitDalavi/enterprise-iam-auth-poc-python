@@ -1,6 +1,9 @@
+> **NOTE:** This repository is an archival lab or partial prototype. It is not actively maintained and should not be used as a reference for production-grade deployments or performance benchmarks.
+
+
 # Enterprise IAM & Auth Service PoC (Python) 🔐
 
-> **Maturity:** Partial Prototype
+> **Maturity:** Functional Prototype
 > _A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns._
 
 > **⚠️ PoC Note:** SSO endpoints use simulated OAuth2/OIDC flows (not connected to a real IdP like Okta or Azure AD). All auth logic (JWT, RBAC, password hashing) is fully functional.
@@ -152,7 +155,7 @@ docker-compose down
 
 ---
 
-*Built with a focus on production-grade patterns, not toy demos.*
+*Built with a focus on robust patterns, not toy demos.*
 
 ## CI & Reliability Updates (August 2026)
 
