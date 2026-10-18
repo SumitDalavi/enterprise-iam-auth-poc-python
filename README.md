@@ -3,6 +3,9 @@
 
 # Enterprise IAM & Auth Service PoC (Python) 🔐
 
+[![Release](https://img.shields.io/github/v/release/SumitDalavi/enterprise-iam-auth-poc-python?color=blue&logo=github)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
+
 > **Maturity:** Functional Prototype
 > _A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns._
 
@@ -184,3 +187,24 @@ Identity and Access Management is a critical component of any enterprise archite
 ## 📁 Architecture Details
 
 For a detailed breakdown of the design patterns used, see the [Architecture Documentation](docs/ARCHITECTURE.md).
+
+## Release & Verification
+
+The project includes an automated DevSecOps release pipeline (`.github/workflows/release.yml`) triggered on semantic version tags (`v*.*.*`).
+
+Each release automatically:
+1. Executes test suite gates.
+2. Builds the container image.
+3. Performs vulnerability scanning via Trivy.
+4. Generates an SPDX SBOM (`sbom.spdx.json`) using Anchore Syft.
+5. Publishes a GitHub Release with attached SBOM.
+
+### Verifying the Release
+```bash
+# Verify release via GitHub CLI
+gh release view v0.1.0 --repo SumitDalavi/enterprise-iam-auth-poc-python
+
+# Download and inspect SBOM
+gh release download v0.1.0 --repo SumitDalavi/enterprise-iam-auth-poc-python --pattern "sbom.spdx.json"
+cat sbom.spdx.json | jq .
+```
