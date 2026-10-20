@@ -1,23 +1,21 @@
 > **NOTE:** This repository is an archival lab or partial prototype. It is not actively maintained and should not be used as a reference for production-grade deployments or performance benchmarks.
 
-
 # Enterprise IAM & Auth Service PoC (Python) 🔐
 
-[![Release](https://img.shields.io/github/v/release/SumitDalavi/enterprise-iam-auth-poc-python?color=blue&logo=github)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
+[![CI Pipeline](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/SumitDalavi/enterprise-iam-auth-poc-python?color=0969da&label=release&logo=github)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
 [![Release Workflow](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/actions/workflows/release.yml/badge.svg)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/actions/workflows/release.yml)
-[![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
-
-[![Release](https://img.shields.io/github/v/release/SumitDalavi/enterprise-iam-auth-poc-python?color=blue&logo=github)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
-[![SBOM](https://img.shields.io/badge/SBOM-SPDX%20JSON-blueviolet?logo=spdx)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases)
+[![GHCR Container](https://img.shields.io/badge/ghcr.io-v0.2.0-blue?logo=docker&logoColor=white)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/pkgs/container/enterprise-iam-auth-poc-python)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org)
+[![SBOM](https://img.shields.io/badge/SBOM-SPDX%202.3-blueviolet?logo=spdx)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/releases/tag/v0.2.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 > **Maturity:** Functional Prototype
 > _A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns._
 
 > **⚠️ PoC Note:** SSO endpoints use simulated OAuth2/OIDC flows (not connected to a real IdP like Okta or Azure AD). All auth logic (JWT, RBAC, password hashing) is fully functional.
 
-
 > **🔗 See also:** [Node.js/TypeScript implementation](https://github.com/SumitDalavi/enterprise-iam-auth-poc-node) of the same IAM service — demonstrating polyglot capability across Python and Node.js ecosystems.
-
 
 ## The Problem
 
@@ -194,7 +192,6 @@ docker-compose down
 - **CI Pipeline Remediation:** Successfully resolved all CI/CD pipeline failures.
 - **Specific Fix:** Pinned FastAPI and Pydantic versions to resolve Pydantic V2 compatibility issues.
 - **Status:** 🟩 Passing
-
 
 ## 📁 Project Structure
 
