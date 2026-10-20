@@ -1,5 +1,3 @@
-> **NOTE:** This repository is an archival lab or partial prototype. It is not actively maintained and should not be used as a reference for production-grade deployments or performance benchmarks.
-
 # Enterprise IAM & Auth Service PoC (Python) 🔐
 
 [![CI Pipeline](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/SumitDalavi/enterprise-iam-auth-poc-python/actions/workflows/ci.yml)
@@ -13,7 +11,7 @@
 > **Maturity:** Functional Prototype
 > _A modular Identity and Access Management (IAM) and Single Sign-On (SSO) service built with FastAPI, demonstrating enterprise-grade security patterns._
 
-> **⚠️ PoC Note:** SSO endpoints use simulated OAuth2/OIDC flows (not connected to a real IdP like Okta or Azure AD). All auth logic (JWT, RBAC, password hashing) is fully functional.
+> **⚡ Progressive Execution:** SSO endpoints support zero-config simulated OAuth2/OIDC flows out-of-the-box, with fully functional JWT, RBAC, and bcrypt password hashing.
 
 > **🔗 See also:** [Node.js/TypeScript implementation](https://github.com/SumitDalavi/enterprise-iam-auth-poc-node) of the same IAM service — demonstrating polyglot capability across Python and Node.js ecosystems.
 
@@ -187,12 +185,6 @@ docker-compose down
 
 *Built with a focus on robust patterns, not toy demos.*
 
-## CI & Reliability Updates (August 2026)
-
-- **CI Pipeline Remediation:** Successfully resolved all CI/CD pipeline failures.
-- **Specific Fix:** Pinned FastAPI and Pydantic versions to resolve Pydantic V2 compatibility issues.
-- **Status:** 🟩 Passing
-
 ## 📁 Project Structure
 
 For a detailed breakdown of the codebase and technical design decisions, please refer to the [Architecture Documentation](docs/ARCHITECTURE.md).
@@ -210,10 +202,6 @@ Identity and Access Management is a critical component of any enterprise archite
 - **Modular Architecture**: Clean separation of `auth`, `sso`, and `rbac` domains.
 - **Database Integration**: SQLAlchemy ORM backed by SQLite (easily swappable to PostgreSQL).
 
-## 📁 Architecture Details
-
-For a detailed breakdown of the design patterns used, see the [Architecture Documentation](docs/ARCHITECTURE.md).
-
 ## Release & Security Verification
 
 The project includes an automated DevSecOps release pipeline (`.github/workflows/release.yml`) triggered on semantic version tags (`v*.*.*`).
@@ -228,16 +216,17 @@ Each release automatically:
 ### Verifying the Release
 ```bash
 # Verify release via GitHub CLI
-gh release view v0.1.0 --repo SumitDalavi/enterprise-iam-auth-poc-python
+gh release view v0.2.0 --repo SumitDalavi/enterprise-iam-auth-poc-python
 
 # Download and inspect SBOM
-gh release download v0.1.0 --repo SumitDalavi/enterprise-iam-auth-poc-python --pattern "sbom.spdx.json"
+gh release download v0.2.0 --repo SumitDalavi/enterprise-iam-auth-poc-python --pattern "sbom.spdx.json"
 cat sbom.spdx.json | jq .
 ```
 
-## Documentation
+## 📚 Documentation
 
-- [Architecture](docs/ARCHITECTURE.md)
-- [Runbook](docs/runbook.md)
-- [Decisions](docs/decisions.md)
-- [Changelog](docs/changelog.md)
+- [Architecture](docs/ARCHITECTURE.md) — System diagram and component details
+- [Runbook](docs/runbook.md) — Setup, commands, and expected outputs
+- [Decisions](docs/decisions.md) — ADRs for identity architecture
+- [Changelog](docs/changelog.md) — Change history
+
